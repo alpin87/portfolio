@@ -110,7 +110,7 @@ export const portfolioData = {
       id: "dongyang-forest",
       title: "동양미래대 숲",
       subtitle: "동양미래대학교 통합 정보 및 커뮤니티 앱",
-      period: "2025.03 - 2024.12",
+      period: "2025.03 - 2025.12",
       description: "동양미래대학교 학생들의 교내 생활 편리성 증진을 목적으로 개발된 통합 커뮤니티 및 정보 제공 애플리케이션입니다. 학과 정보, 공지사항 필터링, 실시간 학식, 시간표 자동 등록, 스터디룸 예약, 중고 거래, 실시간 채팅 등 다양한 기능을 제공합니다.",
       role: "Backend & DevOps",
       techStack: [
