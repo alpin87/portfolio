@@ -1,3 +1,5 @@
+import { link } from "fs";
+
 export const portfolioData = {
   name: "백승민",
   title: "Server/Backend Developer & DevOps",
@@ -141,7 +143,8 @@ export const portfolioData = {
       ],
       links: {
         github: "github.com/dongsooop/backend",
-        demo: ""
+        android: "play.google.com/store/apps/details?id=com.dongsoop.site.dongsoop&pcampaignid=web_share",
+        ios: "apps.apple.com/kr/app/동숲/id6748893131"
       },
       image: "/images/project-dongyang.png"
     },

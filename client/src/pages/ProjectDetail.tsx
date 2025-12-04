@@ -32,9 +32,14 @@ export default function ProjectDetail() {
                       <Github className="w-4 h-4" /> GitHub
                     </a>
                   )}
-                  {project.links.demo && (
-                    <a href={`https://${project.links.demo}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors">
-                      <ExternalLink className="w-4 h-4" /> Live Demo
+                  {project.links.android && (
+                    <a href={`https://${project.links.android}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors">
+                      <ExternalLink className="w-4 h-4" /> android
+                    </a>
+                  )}
+                  {project.links.ios && (
+                    <a href={`https://${project.links.ios}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors">
+                      <ExternalLink className="w-4 h-4" /> ios
                     </a>
                   )}
                 </div>
