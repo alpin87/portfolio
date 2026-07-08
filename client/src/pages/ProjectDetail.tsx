@@ -3,6 +3,7 @@ import { Link, useRoute } from "wouter";
 import { ArrowLeft, Github, ExternalLink } from "lucide-react";
 import NotFound from "./NotFound";
 import FadeInSection from "@/components/FadeInSection";
+import TopNav from "@/components/TopNav";
 
 export default function ProjectDetail() {
   const [match, params] = useRoute("/projects/:id");
@@ -12,7 +13,8 @@ export default function ProjectDetail() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <main className="max-w-4xl mx-auto p-8 lg:p-16">
+      <TopNav />
+      <main className="max-w-4xl mx-auto px-6 py-16">
       <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-500 overflow-hidden">
         {/* Header */}
         <FadeInSection direction="up">
