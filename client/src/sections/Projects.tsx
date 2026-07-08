@@ -54,6 +54,12 @@ function ProjectCard({ project }: { project: Project }) {
             자세히 보기 <ArrowUpRight className="w-4 h-4" />
           </Link>
         )}
+        {project.links.site && (
+          <a href={`https://${project.links.site}`} target="_blank" rel="noreferrer"
+            className="inline-flex items-center gap-1.5 bg-primary text-primary-foreground px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors">
+            사이트 방문 <ArrowUpRight className="w-4 h-4" />
+          </a>
+        )}
         {project.links.github && (
           <a href={`https://${project.links.github}`} target="_blank" rel="noreferrer"
             className="inline-flex items-center gap-1.5 border border-border px-4 py-2 text-sm font-medium hover:bg-secondary transition-colors">

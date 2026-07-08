@@ -9,7 +9,7 @@ export const portfolioData = {
   },
   hero: {
     facts: [
-      { label: "NOW", title: "링크 인 바이오 커머스 개발 중", sub: "Next.js · AWS Serverless" },
+      { label: "NOW", title: "앤유코퍼레이션 Backend Engineer", sub: "myblocks.kr 커머스 개발 중" },
       { label: "SHIPPED", title: "동양미래대 숲 운영 중", sub: "iOS · Android 스토어 출시" },
       { label: "OPEN SOURCE", title: "Spring Security 기여", sub: "PR #18493 merged" }
     ]
@@ -30,6 +30,13 @@ export const portfolioData = {
       language: "Java",
       tag: "Backend",
       github: "github.com/alpin87/Image-Resize"
+    },
+    {
+      name: "ReLog",
+      description: "Menhealer 팀의 ReLog 서비스 Spring Boot 백엔드.",
+      language: "Java",
+      tag: "Backend",
+      github: "github.com/Menhealer/backend"
     }
   ],
   skills: {
@@ -80,6 +87,13 @@ export const portfolioData = {
       role: "근로장학생",
       period: "2022.12 - 2025.02",
       description: "컴퓨터공학과 실습실 유지보수 [비개발]"
+    },
+    {
+      company: "주식회사 앤유코퍼레이션",
+      position: "Backend Engineer",
+      role: "Backend Engineer",
+      period: "2026.03 - 현재",
+      description: "링크 인 바이오 커머스 플랫폼 myblocks.kr 백엔드 개발 (Next.js 모노레포 · AWS 서버리스)"
     }
   ],
   education: [
@@ -204,21 +218,21 @@ export const portfolioData = {
     {
       id: "linkinbio-commerce",
       hasDetail: false,
-      category: "사이드 프로젝트",
-      title: "링크 인 바이오 커머스",
+      category: "회사 프로젝트 · 앤유코퍼레이션",
+      title: "링크 인 바이오 커머스 (myblocks)",
       subtitle: "이벤트 드리븐 서버리스 커머스",
-      period: "개발 중",
+      period: "2026.03 -",
       status: { label: "In Progress", tone: "accent" as const },
-      summary: "Next.js 모노레포 + AWS 서버리스로 만드는 이벤트 드리븐 커머스.",
+      summary: "앤유코퍼레이션에서 개발 중인 링크 인 바이오 커머스 myblocks.kr — Next.js 모노레포 + AWS 서버리스.",
       highlights: [
         "주문/결제 흐름을 Step Functions Saga 패턴으로 설계",
         "DynamoDB → EventBridge → OpenSearch 검색 파이프라인"
       ],
       description: "",
-      role: "Full-stack",
+      role: "Backend",
       techStack: ["Next.js", "TypeScript", "Lambda", "Step Functions", "DynamoDB", "OpenSearch"],
       features: [],
-      links: {},
+      links: { site: "myblocks.kr" },
       image: ""
     }
   ]
