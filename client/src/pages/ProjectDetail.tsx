@@ -1,4 +1,3 @@
-import Layout from "@/components/Layout";
 import { portfolioData } from "@/lib/data";
 import { Link, useRoute } from "wouter";
 import { ArrowLeft, Github, ExternalLink } from "lucide-react";
@@ -9,15 +8,16 @@ export default function ProjectDetail() {
   const [match, params] = useRoute("/projects/:id");
   const project = portfolioData.projects.find((p) => p.id === params?.id);
 
-  if (!match || !project) return <NotFound />;
+  if (!match || !project || !project.hasDetail) return <NotFound />;
 
   return (
-    <Layout>
+    <div className="min-h-screen bg-background text-foreground">
+      <main className="max-w-4xl mx-auto p-8 lg:p-16">
       <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-500 overflow-hidden">
         {/* Header */}
         <FadeInSection direction="up">
           <div className="space-y-6">
-            <Link href="/projects">
+            <Link href="/#projects">
               <button className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-4 bg-transparent border-0 cursor-pointer p-0">
                 <ArrowLeft className="w-4 h-4" /> Back to Projects
               </button>
@@ -124,6 +124,7 @@ export default function ProjectDetail() {
           </FadeInSection>
         </div>
       </div>
-    </Layout>
+      </main>
+    </div>
   );
 }

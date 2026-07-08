@@ -1,25 +1,26 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
+import { Route, Switch, useLocation } from "wouter";
+import { useEffect } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import Home from "./pages/Home";
-import Competencies from "./pages/Competencies";
-import Experience from "./pages/Experience";
-import Skills from "./pages/Skills";
-import Projects from "./pages/Projects";
+import OnePage from "./pages/OnePage";
 import ProjectDetail from "./pages/ProjectDetail";
 
 function Router() {
+  const [location] = useLocation();
+
+  useEffect(() => {
+    if (!window.location.hash) {
+      window.scrollTo(0, 0);
+    }
+  }, [location]);
+
   return (
     <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/projects" component={Projects} />
+      <Route path="/" component={OnePage} />
       <Route path="/projects/:id" component={ProjectDetail} />
-      <Route path="/competencies" component={Competencies} />
-      <Route path="/experience" component={Experience} />
-      <Route path="/skills" component={Skills} />
       <Route component={NotFound} />
     </Switch>
   );
