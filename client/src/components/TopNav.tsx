@@ -3,7 +3,6 @@ import { Moon, Sun } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
 import { cn } from "@/lib/utils";
-import { portfolioData } from "@/lib/data";
 
 const SECTIONS = [
   { id: "projects", label: "Projects" },
@@ -22,7 +21,7 @@ export default function TopNav() {
     <header className="sticky top-0 z-50 bg-background/90 backdrop-blur border-b border-border">
       <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
         <Link href="/" className="font-bold tracking-tight">
-          {portfolioData.name}<span className="text-primary">.</span>
+          Portfolio
         </Link>
         <nav className="flex items-center gap-1">
           {SECTIONS.map(s => (

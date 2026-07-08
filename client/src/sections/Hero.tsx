@@ -6,7 +6,7 @@ export default function Hero() {
   return (
     <FadeInSection direction="up">
       <h1 className="text-6xl sm:text-7xl font-extrabold tracking-tighter leading-[1.05]">
-        {name}<span className="text-primary">.</span>
+        {name}
         <br />
         <span className="text-muted-foreground/60">{title}</span>
       </h1>
