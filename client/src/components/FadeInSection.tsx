@@ -32,7 +32,7 @@ export default function FadeInSection({
     <div
       ref={ref}
       className={cn(
-        "transition-all duration-700 ease-out",
+        "transition-all duration-500 ease-out",
         isVisible
           ? "opacity-100 translate-y-0 translate-x-0"
           : `opacity-0 ${directionClass}`,

@@ -1,47 +1,57 @@
-import { link } from "fs";
-
 export const portfolioData = {
   name: "백승민",
-  title: "Server/Backend Developer & DevOps",
-  intro: "19살부터 쌓아온 서버 엔지니어링 경험을 바탕으로, 안정적인 서비스를 구축하고 비효율을 자동화하는 개발자입니다. 흐름을 읽고 팀과 함께 성장하는 것을 목표로 합니다.",
-  profile: {
-    bio: "19살부터 쌓아온 서버 엔지니어링 경험을 바탕으로, 안정적인 서비스를 구축하고 비효율을 자동화하는 개발자입니다. 흐름을 읽고 팀과 함께 성장하는 것을 목표로 합니다."
-  },
+  title: "Backend Engineer",
   contact: {
     email: "alpin1122@gmail.com",
     phone: "010-2822-6154",
     github: "github.com/alpin87",
     blog: "alpine-1.tistory.com"
   },
-  competencies: [
+  hero: {
+    facts: [
+      { label: "NOW", title: "앤유코퍼레이션 Backend Engineer", sub: "myblocks.kr 커머스 개발 중" },
+      { label: "SHIPPED", title: "동양미래대 숲 운영 중", sub: "iOS · Android 스토어 출시" },
+      { label: "OPEN SOURCE", title: "Spring Security 기여", sub: "PR #18493 merged" }
+    ]
+  },
+  openSource: [
     {
-      title: "Stable Infrastructure",
-      subtitle: "Stable Infrastructure",
-      description: "트래픽이 몰려도 죽지 않는 서버를 지향합니다.",
-      details: [
-        "High Availability: Redis와 메시지 큐를 활용한 트래픽 분산 처리",
-        "Zero Downtime: Blue-Green 무중단 배포 전략 구현",
-        "Monitoring: ELK Stack을 활용한 로그 시각화 및 분석 경험"
-      ]
-    },
-    {
-      title: "Workflow Automation",
-      subtitle: "Workflow Automation",
-      description: "반복되는 비효율을 참지 않고 기술로 해결합니다.",
-      details: [
-        "CI/CD: GitHub Actions로 테스트-빌드-배포 전 과정 자동화",
-        "Bot Integration: Discord WebHook를 연동하여 API 변경 사항, 에러로그, DB접근, 모니터링 알림 구축"
-      ]
-    },
-    {
-      title: "Documentation",
-      subtitle: "Documentation",
-      description: "'나'뿐만 아니라 '팀'을 위한 기록을 남깁니다.",
-      details: [
-        "Knowledge Base: Notion을 활용해 트러블슈팅, 백로그, 기술 문서를 체계적으로 자산화"
-      ]
+      repo: "spring-projects/spring-security",
+      pr: "#18493",
+      title: "Fix Javadoc warnings in spring-security-acl",
+      description: "세계적으로 쓰이는 보안 프레임워크의 Javadoc 경고를 정리해 머지됐습니다.",
+      url: "https://github.com/spring-projects/spring-security/pull/18493"
     }
   ],
+  miniProjects: [
+    {
+      name: "Image-Resize",
+      description: "Spring Boot + AWS S3 이미지 리사이징 업로드 구현.",
+      language: "Java",
+      tag: "Backend",
+      github: "github.com/alpin87/Image-Resize"
+    },
+    {
+      name: "ReLog",
+      description: "Menhealer 팀의 ReLog 서비스 Spring Boot 백엔드.",
+      language: "Java",
+      tag: "Backend",
+      github: "github.com/Menhealer/backend"
+    }
+  ],
+  skills: {
+    now: [
+      { category: "LANGUAGE / RUNTIME", items: ["TypeScript", "Next.js", "React", "Node.js"] },
+      { category: "AWS SERVERLESS", items: ["Lambda", "Step Functions", "SQS + DLQ", "EventBridge", "CDK"] },
+      { category: "DATA / SEARCH", items: ["DynamoDB", "Upstash Redis", "OpenSearch"] },
+      { category: "EDGE / TOOLING", items: ["Cloudflare", "Turborepo", "Sentry"] }
+    ],
+    previously: [
+      { category: "BACKEND", items: ["Java", "Spring Boot", "Spring Security", "JPA / QueryDSL"] },
+      { category: "DATABASE", items: ["MySQL", "PostgreSQL", "Elasticsearch", "Redis"] },
+      { category: "INFRA", items: ["Docker", "Linux", "GitHub Actions", "AWS EC2 / S3", "OCI"] }
+    ]
+  },
   experience: [
     {
       company: "Mireene.com (미리내닷컴)",
@@ -77,14 +87,15 @@ export const portfolioData = {
       role: "근로장학생",
       period: "2022.12 - 2025.02",
       description: "컴퓨터공학과 실습실 유지보수 [비개발]"
+    },
+    {
+      company: "주식회사 앤유코퍼레이션",
+      position: "Backend Engineer",
+      role: "Backend Engineer",
+      period: "2026.03 - 현재",
+      description: "링크 인 바이오 커머스 플랫폼 myblocks.kr 백엔드 개발 (Next.js 모노레포 · AWS 서버리스)"
     }
   ],
-  skills: {
-    backend: ["Java", "Spring Boot", "Spring Security", "Spring Data JPA", "QueryDSL"],
-    database: ["MySQL", "PostgreSQL", "Redis", "Elasticsearch", "Logstash"],
-    devops: ["AWS (EC2, S3)", "OCI (Instance, Object Storage)", "Docker", "Linux (CentOS, Ubuntu)", "CI/CD: GitHub Actions"],
-    tools: ["Git", "Notion", "Discord Webhook"]
-  },
   education: [
     {
       school: "동양미래대학교",
@@ -110,13 +121,22 @@ export const portfolioData = {
   projects: [
     {
       id: "dongyang-forest",
+      hasDetail: true,
+      category: "대학 프로젝트",
       title: "동양미래대 숲",
       subtitle: "동양미래대학교 통합 정보 및 커뮤니티 앱",
       period: "2025.03 - 2025.12",
+      status: { label: "운영 중", tone: "success" as const },
+      summary: "교내 정보·커뮤니티·실시간 채팅을 담아 스토어에 출시·운영 중인 통합 앱의 백엔드·인프라.",
+      highlights: [
+        "RDBMS LIKE 한계 → Elasticsearch + nori, Logstash 3분 주기 동기화로 검색 전환",
+        "WebSocket 끊김 대비 Redis 버퍼 + 재전송으로 메시지 유실 방지",
+        "GitHub Actions + Nginx Blue-Green 무중단 배포 (다운타임 0초)"
+      ],
       description: "동양미래대학교 학생들의 교내 생활 편리성 증진을 목적으로 개발된 통합 커뮤니티 및 정보 제공 애플리케이션입니다. 학과 정보, 공지사항 필터링, 실시간 학식, 시간표 자동 등록, 스터디룸 예약, 중고 거래, 실시간 채팅 등 다양한 기능을 제공합니다.",
       role: "Backend & DevOps",
       techStack: [
-        "Spring Boot 3.x", "Java 17", "Elasticsearch", "Redis", "PostgreSQL", 
+        "Spring Boot 3.x", "Java 17", "Elasticsearch", "Redis", "PostgreSQL",
         "QueryDSL", "Docker", "GitHub Actions", "Oracle Cloud", "FastAPI"
       ],
       features: [
@@ -150,9 +170,17 @@ export const portfolioData = {
     },
     {
       id: "danum",
+      hasDetail: true,
+      category: "졸업작품 (NOMAD)",
       title: "Danum (다눔)",
       subtitle: "AI와 이웃이 함께하는 실시간 Q&A 지식 커뮤니티 플랫폼",
       period: "2024.03 - 2024.11",
+      summary: "지역 기반 Q&A에 ChatGPT 즉시 답변을 결합한 커뮤니티 플랫폼의 Backend Lead.",
+      highlights: [
+        "커스텀 프롬프트로 질문 등록 즉시 AI 답변 제공 (대기 시간 제거)",
+        "WebSocket/STOMP + Redis 중앙 세션으로 다중 서버 실시간 채팅",
+        "GitHub Actions Blue-Green 파이프라인 + Swagger·Discord 알림 자동화"
+      ],
       description: "동양미래대학교 컴퓨터 소프트웨어학과 2024년 졸업작품(NOMAD). 기존 Q&A 플랫폼의 느린 응답 시간과 낮은 신뢰도 문제를 해결하기 위해 지역 기반 Q&A와 AI 기반 즉시 답변 시스템을 구현한 플랫폼입니다. 사용자는 자신의 동네에서 이웃들과 실시간으로 소통하며 신뢰도 높은 지역 정보를 빠르게 획득할 수 있습니다.",
       role: "Backend Lead (인프라 구축, 채팅 개발, Rest API 개발)",
       techStack: [
@@ -186,6 +214,28 @@ export const portfolioData = {
         demo: ""
       },
       image: "/images/project-danum.png"
+    },
+    {
+      id: "linkinbio-commerce",
+      hasDetail: false,
+      category: "회사 프로젝트 · 앤유코퍼레이션",
+      title: "링크 인 바이오 커머스 (myblocks)",
+      subtitle: "이벤트 드리븐 서버리스 커머스",
+      period: "2026.03 -",
+      status: { label: "In Progress", tone: "accent" as const },
+      summary: "앤유코퍼레이션에서 개발 중인 링크 인 바이오 커머스 myblocks.kr — Next.js 모노레포 + AWS 서버리스.",
+      highlights: [
+        "주문/결제 흐름을 Step Functions Saga 패턴으로 설계",
+        "DynamoDB → EventBridge → OpenSearch 검색 파이프라인"
+      ],
+      description: "",
+      role: "Backend",
+      techStack: ["Next.js", "TypeScript", "Lambda", "Step Functions", "DynamoDB", "OpenSearch"],
+      features: [],
+      links: { site: "myblocks.kr" },
+      image: ""
     }
   ]
 };
+
+export type Project = (typeof portfolioData.projects)[number];
