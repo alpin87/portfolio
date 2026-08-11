@@ -112,56 +112,75 @@ export default function ProjectDetail() {
             </div>
           </FadeInSection>
 
-          {project.improvements && project.improvements.length > 0 && (
+          {project.troubleshooting && project.troubleshooting.length > 0 && (
             <FadeInSection direction="up" delay={350}>
               <div className="space-y-8">
                 <div className="space-y-2">
-                  <h3 className="text-2xl font-bold">개선사항 · 성능 개선</h3>
-                  <p className="text-sm text-muted-foreground">전후 값은 실측이며, 측정하지 못한 항목은 따로 표시했습니다.</p>
+                  <h3 className="text-2xl font-bold">개선사항 · 트러블슈팅</h3>
+                  <p className="text-sm text-muted-foreground">
+                    문제 → 원인 → 해결 순으로 정리했습니다. 전후 값은 실측이며, 측정하지 못한 것은 그대로 표시했습니다.
+                  </p>
                 </div>
-                <div className="space-y-8">
-                  {project.improvements.map((group) => (
-                    <div key={group.group}>
-                      <p className="font-mono text-xs text-primary tracking-wider mb-3">{group.group}</p>
-                      <div className="border border-border bg-card">
-                        {group.rows.map((row) => (
-                          <div
-                            key={row.label}
-                            className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-6 px-5 py-4 border-b border-border last:border-b-0"
-                          >
-                            <p className="text-sm">{row.label}</p>
-                            <p className="font-mono text-xs text-muted-foreground shrink-0 sm:text-right">
-                              {row.before} → <span className="text-foreground">{row.after}</span>
-                              {row.delta && <span className="text-primary ml-2">{row.delta}</span>}
-                              {row.note && <span className="block mt-1 not-italic">{row.note}</span>}
-                            </p>
+                <div className="grid gap-6">
+                  {project.troubleshooting.map((item, idx) => (
+                    <FadeInSection key={item.title} direction="up" delay={350 + idx * 50}>
+                      <div className="bg-card border border-border p-6 hover:border-primary/50 transition-colors">
+                        <h4 className="text-lg font-bold mb-5">{item.title}</h4>
+                        <div className="space-y-4">
+                          {[
+                            { label: "문제", text: item.problem },
+                            { label: "원인", text: item.cause },
+                            { label: "해결", text: item.solution }
+                          ].map((line) => (
+                            <div key={line.label} className="grid sm:grid-cols-[3rem_1fr] gap-1 sm:gap-5">
+                              <p className="font-mono text-xs text-primary tracking-wider sm:pt-1">{line.label}</p>
+                              <p className="text-muted-foreground leading-relaxed">{line.text}</p>
+                            </div>
+                          ))}
+                        </div>
+                        {item.results && item.results.length > 0 && (
+                          <div className="mt-6 pt-5 border-t border-border space-y-3">
+                            {item.results.map((row) => (
+                              <div key={row.label} className="space-y-1">
+                                <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-6">
+                                  <p className="text-sm">{row.label}</p>
+                                  <p className="font-mono text-xs text-muted-foreground sm:text-right">
+                                    {row.before} → <span className="text-foreground">{row.after}</span>
+                                    {row.delta && <span className="text-primary ml-2">{row.delta}</span>}
+                                  </p>
+                                </div>
+                                {row.note && <p className="text-xs text-muted-foreground">{row.note}</p>}
+                              </div>
+                            ))}
                           </div>
-                        ))}
+                        )}
                       </div>
-                    </div>
+                    </FadeInSection>
                   ))}
                 </div>
               </div>
             </FadeInSection>
           )}
 
-          <FadeInSection direction="up" delay={400}>
-            <div className="space-y-8">
-              <h3 className="text-2xl font-bold">Key Features & Technical Challenges</h3>
-              <div className="grid gap-6">
-                {project.features.map((feature, idx) => (
-                  <FadeInSection key={idx} direction="up" delay={400 + idx * 50}>
-                    <div className="bg-card border border-border p-6 hover:border-primary/50 transition-colors">
-                      <h4 className="text-lg font-bold mb-3">{feature.title}</h4>
-                      <p className="text-muted-foreground leading-relaxed">
-                        {feature.description}
-                      </p>
-                    </div>
-                  </FadeInSection>
-                ))}
+          {project.features.length > 0 && (
+            <FadeInSection direction="up" delay={400}>
+              <div className="space-y-8">
+                <h3 className="text-2xl font-bold">Key Features & Technical Challenges</h3>
+                <div className="grid gap-6">
+                  {project.features.map((feature, idx) => (
+                    <FadeInSection key={idx} direction="up" delay={400 + idx * 50}>
+                      <div className="bg-card border border-border p-6 hover:border-primary/50 transition-colors">
+                        <h4 className="text-lg font-bold mb-3">{feature.title}</h4>
+                        <p className="text-muted-foreground leading-relaxed">
+                          {feature.description}
+                        </p>
+                      </div>
+                    </FadeInSection>
+                  ))}
+                </div>
               </div>
-            </div>
-          </FadeInSection>
+            </FadeInSection>
+          )}
         </div>
       </div>
       </main>
