@@ -104,8 +104,46 @@ export default function ProjectDetail() {
                   <img src="/images/dongyang-forest-overview.webp" alt="Dongyang Forest Overview" className="w-full h-auto object-cover" />
                 </div>
               )}
+              {project.id === "tempick-extension" && (
+                <div className="w-full overflow-hidden bg-secondary/20 border border-border rounded">
+                  <img src="/images/tempick-extension-overview.png" alt="Tempick Extension Overview" className="w-full h-auto object-cover" />
+                </div>
+              )}
             </div>
           </FadeInSection>
+
+          {project.improvements && project.improvements.length > 0 && (
+            <FadeInSection direction="up" delay={350}>
+              <div className="space-y-8">
+                <div className="space-y-2">
+                  <h3 className="text-2xl font-bold">개선사항 · 성능 개선</h3>
+                  <p className="text-sm text-muted-foreground">전후 값은 실측이며, 측정하지 못한 항목은 따로 표시했습니다.</p>
+                </div>
+                <div className="space-y-8">
+                  {project.improvements.map((group) => (
+                    <div key={group.group}>
+                      <p className="font-mono text-xs text-primary tracking-wider mb-3">{group.group}</p>
+                      <div className="border border-border bg-card">
+                        {group.rows.map((row) => (
+                          <div
+                            key={row.label}
+                            className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-6 px-5 py-4 border-b border-border last:border-b-0"
+                          >
+                            <p className="text-sm">{row.label}</p>
+                            <p className="font-mono text-xs text-muted-foreground shrink-0 sm:text-right">
+                              {row.before} → <span className="text-foreground">{row.after}</span>
+                              {row.delta && <span className="text-primary ml-2">{row.delta}</span>}
+                              {row.note && <span className="block mt-1 not-italic">{row.note}</span>}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </FadeInSection>
+          )}
 
           <FadeInSection direction="up" delay={400}>
             <div className="space-y-8">
