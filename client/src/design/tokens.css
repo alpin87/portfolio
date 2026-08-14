@@ -1,0 +1,83 @@
+/* 어두운 바닥 위에 발광 디더 유체가 상시 구동된다.
+   지면(케이스/인덱스)은 그 위에 불투명한 읽기 판으로 얹혀 가독성을 지킨다.
+   --accent 는 케이스 라우트에서 인라인 스타일로 덮어쓴다. */
+/* 지배적인 중성 환경 하나 + 의도된 액센트 하나.
+   컬러는 상수가 아니라 두 모드다 —
+   중립 모드: 프로젝트 스크린샷이 있는 곳. 이미지가 색을 담당하므로 바탕은 물러난다.
+   비비드 모드(.mode-vivid): 타이포 중심 구역. 액센트 면이 바탕을 대신한다. */
+:root {
+  --ground: #e9e2d5;
+  --surface: #f1ebe0;
+  --surface-raised: #f7f3ea;
+  --ink: #221e19;
+  --ink-soft: #6b6157;
+  --ink-faint: #6a6156;
+  --rule: #d3c9b8;
+  --signal: #b83616;
+  --accent: #b83616;
+
+  --grain-opacity: 0.05;
+
+  /* 타입 스케일 — 1.333 (perfect fourth) */
+  --text-meta: 0.8125rem;
+  --text-body: 1.125rem;
+  --text-lead: 1.333rem;
+  --text-h3: 1.777rem;
+  --text-h2: 2.369rem;
+  --text-h1: 3.157rem;
+  --text-display: clamp(3.157rem, 9vw, 7.478rem);
+
+  --measure: 40rem; /* 본문 1행 길이 상한 */
+
+  --motion-fast: 160ms;
+  --motion-base: 320ms;
+  --motion-slow: 640ms;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-fast: 0ms;
+    --motion-base: 0ms;
+    --motion-slow: 0ms;
+  }
+}
+
+/* 키보드 사용자에게만 보이는 초점 표시. 마우스 클릭에는 나타나지 않는다. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* 본문으로 건너뛰기 — 탭을 누르기 전까지 화면 밖에 있다. */
+/* 비비드 모드 — 타이포 중심 구역에서만 켠다. 이미지가 있는 곳에는 쓰지 않는다. */
+.mode-vivid {
+  --ground: var(--signal);
+  --surface: var(--signal);
+  --ink: #fdf6f1;
+  --ink-soft: #f6d5c8;
+  --ink-faint: #eeb9a4;
+  --rule: #b83a1a;
+  background: var(--signal);
+  color: var(--ink);
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 70;
+  transform: translateY(-200%);
+  background: var(--ink);
+  color: var(--ground);
+  padding: 0.6rem 1rem;
+  font-size: var(--text-meta);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: transform var(--motion-fast) var(--ease-out);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}

@@ -1,40 +1,28 @@
-import { Toaster } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import NotFound from "@/pages/NotFound";
-import { Route, Switch, useLocation } from "wouter";
-import { useEffect } from "react";
-import ErrorBoundary from "./components/ErrorBoundary";
-import { ThemeProvider } from "./contexts/ThemeContext";
-import OnePage from "./pages/OnePage";
-import ProjectDetail from "./pages/ProjectDetail";
-
-function Router() {
-  const [location] = useLocation();
-
-  useEffect(() => {
-    if (!window.location.hash) {
-      window.scrollTo(0, 0);
-    }
-  }, [location]);
-
-  return (
-    <Switch>
-      <Route path="/" component={OnePage} />
-      <Route path="/projects/:id" component={ProjectDetail} />
-      <Route component={NotFound} />
-    </Switch>
-  );
-}
+import { useState } from "react";
+import { Route, Switch } from "wouter";
+import BootScreen from "@/components/BootScreen";
+import ErrorBoundary from "@/components/ErrorBoundary";
+import GrainOverlay from "@/components/GrainOverlay";
+import Building from "@/routes/Building";
+import Case from "@/routes/Case";
+import Index from "@/routes/Index";
+import NotFound from "@/routes/NotFound";
 
 function App() {
+  const [booted, setBooted] = useState(false);
+
   return (
     <ErrorBoundary>
-      <ThemeProvider defaultTheme="light" switchable>
-        <TooltipProvider>
-          <Toaster />
-          <Router />
-        </TooltipProvider>
-      </ThemeProvider>
+      {!booted && <BootScreen onDone={() => setBooted(true)} />}
+      <GrainOverlay />
+      <div className="relative z-10">
+        <Switch>
+          <Route path="/" component={Building} />
+          <Route path="/index" component={Index} />
+          <Route path="/case/:id" component={Case} />
+          <Route component={NotFound} />
+        </Switch>
+      </div>
     </ErrorBoundary>
   );
 }

@@ -125,6 +125,7 @@ export const portfolioData = {
   projects: [
     {
       id: "tempick-extension",
+      accent: "#c2410c",
       hasDetail: true,
       category: "회사 프로젝트 · 앤유코퍼레이션",
       title: "Tempick 크롬 확장",
@@ -208,6 +209,7 @@ export const portfolioData = {
     },
     {
       id: "tempick",
+      accent: "#1d4ed8",
       hasDetail: true,
       category: "회사 프로젝트 · 앤유코퍼레이션",
       title: "Tempick",
@@ -310,6 +312,7 @@ export const portfolioData = {
     },
     {
       id: "dongyang-forest",
+      accent: "#15803d",
       hasDetail: true,
       category: "대학 프로젝트",
       title: "동양미래대 숲",
@@ -350,6 +353,7 @@ export const portfolioData = {
           description: "다양한 콘텐츠(게시글, 댓글, 채팅)를 유연하게 신고할 수 있도록 DB를 설계하고, 트랜잭션을 보장하여 신고 처리를 원자적으로 구현했습니다. 누적 신고 횟수에 따른 자동 블라인드 처리 로직을 적용했습니다."
         }
       ],
+      troubleshooting: [] as Troubleshooting[],
       links: {
         github: "github.com/dongsooop/backend",
         android: "play.google.com/store/apps/details?id=com.dongsoop.site.dongsoop&pcampaignid=web_share",
@@ -359,6 +363,7 @@ export const portfolioData = {
     },
     {
       id: "danum",
+      accent: "#6d28d9",
       hasDetail: true,
       category: "졸업작품 (NOMAD)",
       title: "Danum (다눔)",
@@ -398,6 +403,7 @@ export const portfolioData = {
           description: "당근마켓의 개념을 차용하여 마을 게시판 기능을 개발하고, 같은 지역 내 사용자들이 물리적 문제를 해결할 수 있도록 돕는 사용자-사용자 매칭 시스템을 구현했습니다."
         }
       ],
+      troubleshooting: [] as Troubleshooting[],
       links: {
         github: "github.com/KJLBK/danum-backend",
         demo: ""
@@ -406,6 +412,7 @@ export const portfolioData = {
     },
     {
       id: "linkinbio-commerce",
+      accent: "#b91c1c",
       hasDetail: false,
       category: "회사 프로젝트 · 앤유코퍼레이션",
       title: "링크 인 바이오 커머스 (myblocks)",
@@ -421,6 +428,7 @@ export const portfolioData = {
       role: "Backend",
       techStack: ["Next.js", "TypeScript", "Lambda", "Step Functions", "DynamoDB", "OpenSearch"],
       features: [],
+      troubleshooting: [] as Troubleshooting[],
       links: { site: "myblocks.kr" },
       image: ""
     }
