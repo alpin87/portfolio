@@ -11,16 +11,16 @@
   --surface-raised: #f7f3ea;
   --ink: #221e19;
   --ink-soft: #6b6157;
-  --ink-faint: #9a9081;
+  --ink-faint: #6a6156;
   --rule: #d3c9b8;
-  --signal: #e04b26;
-  --accent: #e04b26;
+  --signal: #b83616;
+  --accent: #b83616;
 
   --grain-opacity: 0.05;
 
   /* 타입 스케일 — 1.333 (perfect fourth) */
-  --text-meta: 0.75rem;
-  --text-body: 1rem;
+  --text-meta: 0.8125rem;
+  --text-body: 1.125rem;
   --text-lead: 1.333rem;
   --text-h3: 1.777rem;
   --text-h2: 2.369rem;

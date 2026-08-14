@@ -43,7 +43,7 @@ function FloorPanel({ floor }: { floor: FloorId }) {
         </p>
         <p
           className="mt-6"
-          style={{ fontSize: "1rem", lineHeight: 1.85, color: "var(--ink)", wordBreak: "keep-all" }}
+          style={{ fontSize: "var(--text-body)", lineHeight: 1.85, color: "var(--ink)", wordBreak: "keep-all" }}
         >
           값을 먼저 재고, 구간을 쪼개고, 비중이 큰 곳부터 고칩니다. 위층으로 올라갈수록 최근
           작업입니다.
@@ -157,7 +157,7 @@ function FloorPanel({ floor }: { floor: FloorId }) {
       <p
         className="mt-7"
         style={{
-          fontSize: "1rem",
+          fontSize: "var(--text-body)",
           lineHeight: 1.85,
           color: "var(--ink)",
           wordBreak: "keep-all",
