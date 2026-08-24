@@ -22,6 +22,11 @@ export default defineConfig({
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
   },
+  // public/hero-shelf.html loads three.js from a CDN importmap; without this the
+  // dep scanner treats it as an app entry and gives up on pre-bundling.
+  optimizeDeps: {
+    entries: ["index.html"],
+  },
   server: {
     port: 3000,
     strictPort: false,

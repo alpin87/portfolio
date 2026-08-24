@@ -16,8 +16,8 @@ export default function OnePage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <TopNav />
+      <section id="hero"><Hero /></section>
       <main className="max-w-5xl mx-auto px-6">
-        <section id="hero" className="py-24"><Hero /></section>
         <section id="projects" className="py-24 scroll-mt-16"><Projects /></section>
         <section id="opensource" className="py-24 scroll-mt-16"><OpenSource /></section>
         <section id="experience" className="py-24 scroll-mt-16"><Experience /></section>
