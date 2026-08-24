@@ -12,7 +12,7 @@ export const portfolioData = {
   },
   hero: {
     facts: [
-      { label: "NOW", title: "앤유코퍼레이션 Backend Engineer", sub: "myblocks.kr 커머스 개발 중" },
+      { label: "NOW", title: "앤유코퍼레이션 Backend Engineer", sub: "myblocks.kr 커머스 운영 중" },
       { label: "SHIPPED", title: "동양미래대 숲 운영 중", sub: "iOS · Android 스토어 출시" },
       { label: "OPEN SOURCE", title: "Spring Security 기여", sub: "PR #18493 merged" }
     ]
@@ -135,7 +135,8 @@ export const portfolioData = {
       highlights: [
         "chrome-extension:// 오리진은 SameSite=Lax 쿠키를 못 받음 → 토큰 인증 + 매 요청 계정 상태 재확인 (fail closed)",
         "계정 연결 3세대 재설계 — 토큰 수동 복사 6단계 → 로그인 승인 1회 → 일회용 코드 교환",
-        "프래그먼트는 안전하다던 내 반박이 오답 — 로그에 남은 토큰 95건 확인 후 OAuth 인가 코드 방식으로 교체"
+        "프래그먼트는 안전하다던 내 반박이 오답 — 로그에 남은 토큰 95건 확인 후 OAuth 인가 코드 방식으로 교체",
+        "인스타그램·Threads 원본 화질 미디어 저장 축 추가 — 서버 없이 페이지의 GraphQL 페이로드를 직접 파싱"
       ],
       description: "쿠팡 상품을 Tempick 페이지에 올리려면 주소를 복사해 어드민으로 이동하고, 모달을 열어 붙여넣고, 수익 링크로 변환해 저장하는 여섯 단계를 거쳐야 했습니다. 상품 하나에 화면을 두 번 오가는 구조라 상품을 열 개 올리는 사용자에게는 이 왕복이 작업 시간의 대부분이었습니다. 목표는 쿠팡 화면을 떠나지 않는 것 하나였고, 상품 페이지에 버튼을 얹어 제목·썸네일·주소를 읽어 보내면 서버가 머천트 본인의 쿠팡파트너스 키로 수익 링크를 만들어 블록으로 쌓게 했습니다. 다만 이 작업의 대부분은 기능이 아니라 확장이라는 실행 환경이 만든 제약이었습니다. 쿠키를 쓸 수 없다는 것과, 콘텐츠 스크립트가 도는 페이지를 통제할 수 없다는 것 두 가지입니다.",
       role: "Backend & Extension",
@@ -406,21 +407,64 @@ export const portfolioData = {
     },
     {
       id: "linkinbio-commerce",
-      hasDetail: false,
+      hasDetail: true,
       category: "회사 프로젝트 · 앤유코퍼레이션",
       title: "링크 인 바이오 커머스 (myblocks)",
       subtitle: "이벤트 드리븐 서버리스 커머스",
       period: "2026.03 -",
-      status: { label: "In Progress", tone: "accent" as const },
-      summary: "앤유코퍼레이션에서 개발 중인 링크 인 바이오 커머스 myblocks.kr — Next.js 모노레포 + AWS 서버리스.",
+      status: { label: "운영 중", tone: "success" as const },
+      summary: "앤유코퍼레이션에서 개발·운영 중인 링크 인 바이오 커머스 myblocks.kr — Next.js 모노레포 + AWS 서버리스.",
       highlights: [
-        "주문/결제 흐름을 Step Functions Saga 패턴으로 설계",
-        "DynamoDB → EventBridge → OpenSearch 검색 파이프라인"
+        "주문/결제 흐름을 Step Functions Saga 패턴으로 설계 (보상 트랜잭션 독립 태스크)",
+        "결제 승인 → 정산 원장 → 토스 지급대행까지 돈의 전 여정을 서버리스로 구축",
+        "DynamoDB Stream → EventBridge → OpenSearch 검색 파이프라인 (인덱스 11종)"
       ],
-      description: "",
-      role: "Backend",
-      techStack: ["Next.js", "TypeScript", "Lambda", "Step Functions", "DynamoDB", "OpenSearch"],
+      description: "앤유코퍼레이션의 링크 인 바이오 커머스 플랫폼입니다. Next.js 모노레포(셀러 어드민 · 유저 페이지 · 슈퍼어드민)와 AWS 서버리스(Lambda · DynamoDB · Step Functions · OpenSearch) 위에서 개발자 3명이 만들어 myblocks.kr로 운영 중입니다. 주문·결제는 Step Functions 사가로, 결제 승인부터 정산 원장·토스 지급대행까지 돈의 전 여정이 코드로 구축되어 있습니다. 제가 맡은 영역은 그중 운영의 마지막 구간입니다 — 정산·지급을 운영자가 다루는 superadmin 백오피스, 정기결제 현황, 알림센터, 인스타그램 DM 캐러셀, 그리고 다른 서비스에서 페이지를 옮겨오는 이사오기 파이프라인.",
+      role: "Backend — superadmin 백오피스 · 정산/지급 운영 화면 · 인스타 DM · 이사오기",
+      techStack: ["Next.js", "TypeScript", "Lambda", "Step Functions", "DynamoDB", "OpenSearch", "EventBridge", "SQS"],
       features: [],
+      troubleshooting: [
+        {
+          title: "정산 화면이 조회 실패를 '0건'으로 보여줬다",
+          problem: "superadmin 정산·알림 화면에서 조회가 실패하면 빈 목록과 구분되지 않는 '0건'으로 표시됐습니다. 운영자는 정산이 없는 것인지 조회가 죽은 것인지 알 수 없습니다.",
+          cause: "실패를 빈 배열로 삼키는 처리에 더해, 여러 조회 중 하나만 실패해도 화면 전체가 비는 구조였습니다. 탭을 빠르게 오가면 늦게 도착한 이전 응답이 최신 목록을 덮어쓰는 레이스도 있었습니다.",
+          solution: "실패는 실패로 표시하고, 부분 실패를 허용해 조회 하나가 죽어도 나머지 데이터는 그대로 노출했습니다. 늦게 온 이전 응답은 버리도록 순서를 보장하고, 셀러를 전환할 때 이전 셀러의 지급 회차가 잔상으로 남지 않게 했습니다.",
+          results: [
+            { label: "조회 실패 표시", before: "'0건'으로 위장", after: "실패로 구분 표시" },
+            { label: "부분 실패 시 화면", before: "전체 빈 화면", after: "성공한 조회는 노출" }
+          ]
+        },
+        {
+          title: "정산 상세가 외부 영수증 조회에 묶여 있었다",
+          problem: "정산 상세를 열 때마다 토스 매출전표 조회가 함께 돌아, 상세 진입 속도가 외부 API 지연에 끌려갔습니다. 매출전표 버튼은 팝업 차단과 중복 노출 문제도 있었습니다.",
+          cause: "상세 데이터와 영수증 조회가 한 경로에 묶여 있었고, 집계 기간 필터가 지급일 그룹이 아니라 원장 행에 적용되어 집계가 어긋날 수 있었습니다.",
+          solution: "영수증 조회를 상세 로딩에서 떼어내 버튼 클릭 시점으로 미루고, 구매자 주문 상세와 정산 상세의 영수증 조회를 공통화했습니다. 집계 기간을 지급일 그룹 기준으로 바로잡고, 지급일별 집계표와 엑셀 내보내기를 붙여 정산 운영을 화면에서 끝낼 수 있게 했습니다. PG 수수료율은 실측해 유지 근거를 문서로 남겼습니다.",
+          results: []
+        },
+        {
+          title: "정기결제 목록이 행마다 개별 조회를 반복했다",
+          problem: "superadmin 결제관리에 정기결제 현황 탭을 추가하면서, 구독 목록이 행마다 연관 데이터를 따로 조회해 목록이 커질수록 느려졌습니다.",
+          cause: "DynamoDB에서 행 단위 개별 조회로 조인을 흉내 내고 있었습니다. 상태 탭 구성에도 실데이터상 항상 비어 있는 탭이 끼어 있었습니다.",
+          solution: "개별 조회를 BatchGet으로 묶어 왕복을 줄였습니다. 항상 비어 있던 PROCESSING 탭은 지우고 결제 실패·해지 탭을 추가했으며, 신규 화면의 판정 로직은 도메인 단위테스트 게이트에 등록해 회귀를 잠갔습니다.",
+          results: [
+            { label: "구독 연관 데이터 조회", before: "행마다 개별 조회", after: "BatchGet 일괄 조회" }
+          ]
+        },
+        {
+          title: "DM 캐러셀 이미지가 스펙과 수명 관리 없이 나갔다",
+          problem: "인스타그램 자동 DM에 이미지 캐러셀을 추가했는데, 카드가 Meta 스펙과 어긋나고 이미지가 원본 비율을 잃거나 저장 과정에서 유실될 수 있었습니다.",
+          cause: "카드 계약을 Meta generic template 스펙 문서가 아니라 화면 기준으로 정의했고, 저장 중 삭제 차단이나 소유권 검사 같은 이미지 수명 경계를 정하지 않았습니다.",
+          solution: "카드 계약을 Meta 스펙에 맞춰 다시 정의하고 이미지를 원본 비율로 내보냈습니다. 저장 중 이미지 삭제를 차단하고 저장되지 않은 이미지는 정리하며, 리뷰에서 지적된 게이트 우회·이미지 유실·소유권 문제를 반영해 payload 검증 테스트를 실행 체인에 연결했습니다.",
+          results: []
+        },
+        {
+          title: "이사오기의 그리드 판정과 호출 상한에 구멍이 있었다",
+          problem: "다른 서비스에서 페이지를 옮겨오는 이사오기가 그리드형 페이지에서 성격이 다른 셀을 한 그룹으로 묶었고, 호출 상한 카운터에 경합 여지가 있었습니다.",
+          cause: "그룹 판정 조건이 느슨해 타일이 아닌 셀까지 그리드로 잡혔고, 레이트리밋의 INCR와 EXPIRE가 원자적이지 않아 경합 시 상한이 어긋날 수 있었습니다.",
+          solution: "그룹 판정을 타일 묶음으로 좁히고 셀 성격 조건을 추가했으며, 실제 DOM 픽스처로 판정 테스트를 고정했습니다. 호출 상한은 INCR/EXPIRE를 원자 처리로 묶고 회귀 테스트와 layout 계약을 남겼습니다.",
+          results: []
+        }
+      ] as Troubleshooting[],
       links: { site: "myblocks.kr" },
       image: ""
     }

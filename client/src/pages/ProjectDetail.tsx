@@ -29,6 +29,11 @@ export default function ProjectDetail() {
               <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                 <h1 className="text-4xl font-bold tracking-tight">{project.title}</h1>
                 <div className="flex gap-3">
+                  {project.links.site && (
+                    <a href={`https://${project.links.site}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors">
+                      <ExternalLink className="w-4 h-4" /> 사이트 방문
+                    </a>
+                  )}
                   {project.links.github && (
                     <a href={`https://${project.links.github}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-4 py-2 border border-border text-sm font-medium hover:bg-secondary transition-colors">
                       <Github className="w-4 h-4" /> GitHub
@@ -52,11 +57,13 @@ export default function ProjectDetail() {
         </FadeInSection>
 
         {/* Main Image */}
-        <FadeInSection direction="up" delay={100}>
-          <div className="aspect-video w-full overflow-hidden bg-secondary/20 border border-border">
-            <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
-          </div>
-        </FadeInSection>
+        {project.image && (
+          <FadeInSection direction="up" delay={100}>
+            <div className="aspect-video w-full overflow-hidden bg-secondary/20 border border-border">
+              <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+            </div>
+          </FadeInSection>
+        )}
 
         {/* Overview Grid */}
         <FadeInSection direction="up" delay={200}>
