@@ -46,101 +46,102 @@
 }
 
 :root {
-  /* Swiss Modernist Palette */
-  /* Primary: Interaction Blue (#0052FF) */
-  --primary: oklch(0.55 0.25 260);
-  --primary-foreground: oklch(1 0 0);
-  
-  /* Background: Pure White */
+  /* shadcn neutral — dashboard-01 tone */
+  --radius: 0.625rem;
+
   --background: oklch(1 0 0);
-  /* Foreground: Deep Charcoal (#1A1A1A) */
-  --foreground: oklch(0.2 0 0);
-  
-  /* Card: Very Light Gray for subtle separation */
-  --card: oklch(0.99 0 0);
-  --card-foreground: oklch(0.2 0 0);
-  
+  --foreground: oklch(0.145 0 0);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.2 0 0);
-  
-  /* Secondary: Light Gray for tags/backgrounds */
-  --secondary: oklch(0.96 0 0);
-  --secondary-foreground: oklch(0.2 0 0);
-  
-  /* Muted: Gray text */
-  --muted: oklch(0.96 0 0);
-  --muted-foreground: oklch(0.55 0 0);
-  
-  /* Accent: Subtle Blue tint */
-  --accent: oklch(0.97 0.02 260);
-  --accent-foreground: oklch(0.2 0 0);
-  
-  --destructive: oklch(0.6 0.2 25);
-  --destructive-foreground: oklch(0.98 0 0);
-  
-  /* Border: Very subtle gray lines */
-  --border: oklch(0.92 0 0);
-  --input: oklch(0.92 0 0);
-  --ring: oklch(0.55 0.25 260);
-  
-  --radius: 0rem; /* Sharp corners for Swiss style */
+  --popover-foreground: oklch(0.145 0 0);
 
-  --success: #16a34a;
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
 
-  --chart-1: oklch(0.55 0.25 260);
-  --chart-2: oklch(0.65 0.2 260);
-  --chart-3: oklch(0.75 0.15 260);
-  --chart-4: oklch(0.85 0.1 260);
-  --chart-5: oklch(0.95 0.05 260);
-  
-  --sidebar: oklch(0.99 0 0);
-  --sidebar-foreground: oklch(0.2 0 0);
-  --sidebar-primary: oklch(0.55 0.25 260);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.96 0 0);
-  --sidebar-accent-foreground: oklch(0.2 0 0);
-  --sidebar-border: oklch(0.92 0 0);
-  --sidebar-ring: oklch(0.55 0.25 260);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+
+  /* 유일한 유채색 — 운영 중 표시에만 쓴다 */
+  --success: oklch(0.6 0.13 155);
+
+  /* 단색 스텝 스케일: 차트가 UI와 같은 톤을 유지하도록 */
+  --chart-1: oklch(0.205 0 0);
+  --chart-2: oklch(0.36 0 0);
+  --chart-3: oklch(0.52 0 0);
+  --chart-4: oklch(0.68 0 0);
+  --chart-5: oklch(0.82 0 0);
+
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
 }
 
 .dark {
-  --background: #0b0e14;
-  --foreground: #e8eaf0;
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
 
-  --card: #0f1420;
-  --card-foreground: #e8eaf0;
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
 
-  --popover: #0f1420;
-  --popover-foreground: #e8eaf0;
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
 
-  --primary: #3b82f6;
-  --primary-foreground: #ffffff;
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
 
-  --secondary: #161c2a;
-  --secondary-foreground: #e8eaf0;
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
 
-  --muted: #161c2a;
-  --muted-foreground: #9aa3b5;
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
 
-  --accent: #161c2a;
-  --accent-foreground: #e8eaf0;
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
 
-  --destructive: oklch(0.6 0.2 25);
-  --destructive-foreground: oklch(0.98 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.985 0 0);
 
-  --border: #1c2230;
-  --input: #1c2230;
-  --ring: #3b82f6;
-  --success: #22c55e;
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
 
-  --sidebar: #0f1420;
-  --sidebar-foreground: #e8eaf0;
-  --sidebar-primary: #3b82f6;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #161c2a;
-  --sidebar-accent-foreground: #e8eaf0;
-  --sidebar-border: #1c2230;
-  --sidebar-ring: #3b82f6;
+  --success: oklch(0.72 0.15 155);
+
+  --chart-1: oklch(0.985 0 0);
+  --chart-2: oklch(0.84 0 0);
+  --chart-3: oklch(0.7 0 0);
+  --chart-4: oklch(0.556 0 0);
+  --chart-5: oklch(0.43 0 0);
+
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.922 0 0);
+  --sidebar-primary-foreground: oklch(0.205 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
 }
 
 @layer base {
@@ -149,6 +150,9 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* 한글은 어절 단위로만 줄을 바꾼다 */
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
