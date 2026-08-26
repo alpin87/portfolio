@@ -1,54 +1,76 @@
 import { portfolioData } from "@/lib/data";
-import SectionHeading from "@/sections/SectionHeading";
-import FadeInSection from "@/components/FadeInSection";
+import { Badge } from "@/components/ui/badge";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default function Experience() {
   const { experience, education, certifications } = portfolioData;
-  return (
-    <>
-      <SectionHeading index="03" title="EXPERIENCE" />
-      <div className="space-y-10">
-        {experience.map(exp => (
-          <FadeInSection key={exp.company + exp.period} direction="up">
-            <div className="grid sm:grid-cols-[180px_1fr] gap-2 sm:gap-8">
-              <p className="font-mono text-sm text-muted-foreground pt-0.5">{exp.period}</p>
-              <div>
-                <h3 className="font-bold">{exp.company}</h3>
-                <p className="text-sm text-primary mt-0.5">{exp.position}</p>
-                <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{exp.description}</p>
-              </div>
-            </div>
-          </FadeInSection>
-        ))}
-      </div>
+  const timeline = [...experience].reverse();
 
-      <FadeInSection direction="up">
-        <div className="grid md:grid-cols-2 gap-12 mt-20">
-          <div>
-            <p className="font-mono text-xs text-muted-foreground tracking-[0.2em] mb-6 border-b border-border pb-3">교육</p>
-            <div className="space-y-6">
-              {education.map(edu => (
-                <div key={edu.major} className="border-l-2 border-primary pl-4">
-                  <h4 className="font-bold">{edu.school} <span className="font-normal text-sm text-muted-foreground">{edu.status}</span></h4>
-                  <p className="text-sm text-muted-foreground mt-1">{edu.major}</p>
-                  <p className="font-mono text-xs text-muted-foreground mt-1">GPA {edu.gpa}</p>
+  return (
+    <div className="space-y-4">
+      <Card>
+        <CardHeader>
+          <CardTitle>경력</CardTitle>
+          <CardDescription>최근 순으로 정리했습니다.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ol className="border-border relative space-y-8 border-l pl-6">
+            {timeline.map(exp => (
+              <li key={exp.company + exp.period} className="relative">
+                <span className="border-background bg-border absolute -left-[1.9rem] top-1.5 size-3 rounded-full border-2" />
+                <p className="text-muted-foreground font-mono text-xs">{exp.period}</p>
+                <h3 className="mt-1 font-medium">{exp.company}</h3>
+                <p className="text-muted-foreground text-sm">{exp.position}</p>
+                <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
+                  {exp.description}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </CardContent>
+      </Card>
+
+      <div className="grid gap-4 @3xl/main:grid-cols-2">
+        <Card>
+          <CardHeader>
+            <CardTitle>교육</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-5">
+            {education.map(edu => (
+              <div key={edu.major}>
+                <div className="flex flex-wrap items-center gap-2">
+                  <h4 className="font-medium">{edu.school}</h4>
+                  <Badge variant="secondary">{edu.status}</Badge>
                 </div>
-              ))}
-            </div>
-          </div>
-          <div>
-            <p className="font-mono text-xs text-muted-foreground tracking-[0.2em] mb-6 border-b border-border pb-3">자격증</p>
-            <div className="grid gap-4">
-              {certifications.map(cert => (
-                <div key={cert.name} className="border-l-2 border-primary pl-4">
-                  <h4 className="font-bold">{cert.name}</h4>
-                  <p className="font-mono text-xs text-muted-foreground mt-1">{cert.issuer} · {cert.date}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </FadeInSection>
-    </>
+                <p className="text-muted-foreground mt-1 text-sm">{edu.major}</p>
+                <p className="text-muted-foreground mt-1 font-mono text-xs">GPA {edu.gpa}</p>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>자격증</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-5">
+            {certifications.map(cert => (
+              <div key={cert.name}>
+                <h4 className="font-medium">{cert.name}</h4>
+                <p className="text-muted-foreground mt-1 font-mono text-xs">
+                  {cert.issuer} · {cert.date}
+                </p>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      </div>
+    </div>
   );
 }
