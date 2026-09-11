@@ -13,16 +13,14 @@ import {
 } from "@/components/ui/card";
 
 function StateBadge({ entry }: { entry: OpenSourceEntry }) {
-  const Icon =
-    entry.kind === "issue" ? CircleDot : entry.state === "Merged" ? GitMerge : GitPullRequest;
+  const merged = entry.kind === "pr" && entry.state.startsWith("Merged");
+  const Icon = entry.kind === "issue" ? CircleDot : merged ? GitMerge : GitPullRequest;
+  // 완료 상태(머지된 PR·해결된 이슈)는 GitHub 과 같은 보라로 통일한다
+  const color = entry.tone === "success" ? "text-merged size-3" : "text-muted-foreground size-3";
 
   return (
     <Badge variant="outline">
-      <Icon
-        className={
-          entry.tone === "success" ? "text-success size-3" : "text-muted-foreground size-3"
-        }
-      />
+      <Icon className={color} />
       {entry.kind === "issue" ? "이슈" : "PR"} · {entry.state}
     </Badge>
   );
@@ -41,12 +39,12 @@ export default function OpenSource() {
               <span aria-hidden>·</span>
               <span>{entry.date}</span>
             </CardDescription>
-            <CardTitle className="max-w-[42ch] text-lg leading-snug">{entry.title}</CardTitle>
+            <CardTitle className="text-lg leading-snug">{entry.title}</CardTitle>
           </CardHeader>
 
           <CardContent className="space-y-3">
             <StateBadge entry={entry} />
-            <p className="text-muted-foreground max-w-[70ch] text-sm leading-relaxed">
+            <p className="text-muted-foreground text-sm leading-relaxed">
               {entry.description}
             </p>
           </CardContent>

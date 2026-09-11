@@ -41,6 +41,7 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-success: var(--success);
+  --color-merged: var(--merged);
   --font-sans: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
@@ -77,8 +78,9 @@
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
 
-  /* 유일한 유채색 — 운영 중 표시에만 쓴다 */
+  /* 유채색은 상태 표시에만 쓴다: 운영 중(초록), 머지됨(GitHub 보라) */
   --success: oklch(0.6 0.13 155);
+  --merged: #8250df;
 
   /* 단색 스텝 스케일: 차트가 UI와 같은 톤을 유지하도록 */
   --chart-1: oklch(0.205 0 0);
@@ -127,6 +129,7 @@
   --ring: oklch(0.556 0 0);
 
   --success: oklch(0.72 0.15 155);
+  --merged: #a371f7;
 
   --chart-1: oklch(0.985 0 0);
   --chart-2: oklch(0.84 0 0);
@@ -150,9 +153,15 @@
   }
   body {
     @apply bg-background text-foreground;
-    /* 한글은 어절 단위로만 줄을 바꾼다 */
+    /* 한글은 어절 단위로만 줄을 바꾸되, 문단 전체를 보고 줄바꿈 위치를 고르게 한다.
+       pretty 없이 keep-all 만 쓰면 긴 어절이 통째로 내려가며 줄 끝에 어색한 여백이 남는다 */
     word-break: keep-all;
     overflow-wrap: break-word;
+    text-wrap: pretty;
+  }
+  h1, h2, h3, h4 {
+    /* 제목이 고유명사 중간에서 갈라지지 않게 줄 길이를 맞춘다 */
+    text-wrap: balance;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),

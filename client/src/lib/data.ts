@@ -26,6 +26,61 @@ export type OpenSourceEntry = {
 };
 
 const openSource: OpenSourceEntry[] = [
+    {
+      id: "spring-data-relational-2367",
+      hasDetail: true,
+      repo: "spring-projects/spring-data-relational",
+      kind: "pr" as const,
+      ref: "#2367",
+      state: "Merged · 4.0.8",
+      tone: "success" as const,
+      date: "2026.09",
+      role: "이슈 제보 + 수정 PR",
+      title: "생성 시각이 update마다 덮어써졌습니다: 첫 Spring Data 코드 기여",
+      description:
+        "@InsertOnlyProperty를 @Embedded와 함께 쓰면 조용히 무시되어, 생성일시 같은 삽입 전용 컬럼이 update마다 덮어써지고 있었습니다. 원인을 이슈 #2366으로 제보하고 수정 PR을 함께 올려 머지됐고, 4.0.8로 백포트됐습니다.",
+      article: {
+        lead: "Spring Data R2DBC에는 @InsertOnlyProperty라는 애너테이션이 있습니다. INSERT에만 참여하고 UPDATE에서는 빠지는 컬럼을 표시하는 것으로, 생성일시나 생성자처럼 한 번 쓰고 다시는 바뀌면 안 되는 감사 필드가 전형적인 용도입니다. 그런데 이런 필드들을 @Embedded로 묶어서 정리하는 순간, 이 애너테이션이 아무 경고 없이 무시됩니다. update를 할 때마다 생성일시가 덮어써지고, upsert의 DO UPDATE 절에도 삽입 전용 컬럼이 들어갑니다. 이번에는 제보에서 멈추지 않고 수정 코드까지 올려 머지된 기록입니다.",
+        sections: [
+          {
+            heading: "감사 필드를 임베디드로 묶는 순간 조용히 깨졌습니다",
+            body: [
+              "생성일시와 생성자 같은 필드는 보통 하나의 임베더블로 묶어서 여러 엔티티가 재사용합니다. Spring Data가 권장하는 자연스러운 모델링이죠. 문제는 그렇게 묶는 순간 @InsertOnlyProperty가 무시된다는 것입니다.",
+              "무시되는 방식이 고약합니다. 예외도 경고도 없이 update 문에 그 컬럼이 그대로 포함됩니다. 엔티티를 조회해서 저장하는 평범한 흐름에서는 값이 유지되니 눈치채기 어렵고, 조회 없이 update를 만들거나 upsert를 쓰는 순간 생성 시각이 현재 값으로 덮어써집니다. 감사 데이터가 소리 없이 오염되는 종류의 버그입니다."
+            ]
+          },
+          {
+            heading: "원인은 컬럼 수집이 한 층만 보는 것이었습니다",
+            body: [
+              "R2dbcEntityTemplate은 삽입 전용 컬럼 목록을 만들 때 엔티티의 최상위 프로퍼티만 순회하고 있었습니다. 그래서 두 경우가 모두 빠집니다.",
+              "임베디드 컨테이너에 애너테이션을 붙이면, 실제 행에 존재하는 것은 접두어가 붙은 리프 컬럼들인데 수집되는 것은 행에 없는 컨테이너 이름입니다. 반대로 임베더블 내부의 프로퍼티에 붙이면, 순회가 그 안까지 내려가지 않아 아예 방문되지 않습니다. 어느 쪽에 붙여도 결과는 같습니다.",
+              "흥미로운 것은 JDBC 쪽입니다. SqlGenerator의 컬럼 캐시는 재귀로 임베디드를 풀기 때문에 리프에 붙인 경우는 이미 올바르게 동작했습니다. 같은 기능이 모듈에 따라 반쪽만 동작하고 있었던 셈이고, 이 대비가 원인을 좁히는 데 큰 힌트가 됐습니다."
+            ]
+          },
+          {
+            heading: "이번에는 제보와 수정을 같이 올렸습니다",
+            body: [
+              "Spring Batch 때는 재현 테스트를 붙인 제보까지만 하고 수정은 메인테이너 판단에 맡겼습니다. 프레임워크의 방향 결정이 걸린 문제였기 때문입니다. 이번은 달랐습니다. 문서화된 의도가 명확하고 구현이 그 의도를 못 따라간 경우라, 고치는 방향에 해석의 여지가 없었습니다.",
+              "그래서 이슈 #2366으로 원인을 정리해 제보하면서, 임베디드 프로퍼티를 리프 컬럼까지 풀어서 수집하도록 고친 PR #2367을 함께 올렸습니다. update 경로와 upsert의 insertOnlyColumns 수집 경로 양쪽을 고치고, 컨테이너에 붙인 경우와 내부에 붙인 경우를 모두 커버하는 테스트를 붙였습니다."
+            ]
+          },
+          {
+            heading: "그래서 어떻게 됐나",
+            body: [
+              "메인테이너가 merged and ported back이라는 코멘트와 함께 반영했습니다. 제 커밋이 spring-data-relational 본 저장소에 들어갔고, 4.0.8 패치 릴리스로 백포트됐습니다.",
+              "Spring Security 기여는 Javadoc 정리였고 Spring Batch는 코드 없는 제보였으니, 동작 버그를 고친 코드가 스프링 생태계에 머지된 것은 이번이 처음입니다. 제보의 값은 원인을 어디까지 좁히느냐가 정한다는 것을 Batch에서 배웠다면, 이번에는 방향이 자명한 문제라면 수정까지 들고 가는 쪽이 모두의 시간을 아낀다는 것을 확인했습니다."
+            ]
+          }
+        ]
+      },
+      results: [
+        { label: "임베디드 안의 @InsertOnlyProperty", before: "무시됨 (update마다 덮어씀)", after: "update에서 제외" },
+        { label: "upsert DO UPDATE 절", before: "삽입 전용 컬럼 포함", after: "제외" },
+        { label: "커버 범위", before: "JDBC 리프만 반쪽 동작", after: "R2DBC 컨테이너·내부 표기 모두" },
+        { label: "반영", before: "2026.08.21 제보", after: "2026.09.10 머지 · 4.0.8 백포트" }
+      ],
+      url: "https://github.com/spring-projects/spring-data-relational/pull/2367"
+    },
 
     {
       id: "spring-batch-5493",
@@ -103,7 +158,7 @@ const openSource: OpenSourceEntry[] = [
           {
             heading: "고치는 방향은 제안만 하고 물었습니다",
             body: [
-              "PR을 바로 올릴 수도 있었습니다. 그런데 scan 구간의 콜백을 아예 없앨지, 아니면 의미를 다시 정의할지는 프레임워크가 정할 문제라고 봤습니다. 그래서 제 판단을 관철하는 대신 방향을 적고 확인을 요청했습니다.",
+              "PR을 바로 올릴 수도 있었습니다. 그런데 scan 콜백을 없앨지 의미를 다시 정의할지는 프레임워크가 정할 문제라고 봤습니다. 그래서 제 판단을 관철하는 대신 방향을 적고 확인을 요청했습니다.",
               "제안한 쪽은 scan 분기의 beforeChunk/afterChunk 호출을 빼는 것입니다. 원래 청크는 이미 beforeChunk와 onChunkError를 받았으니 scan 트랜잭션마다 다시 부를 이유가 없습니다. 여기에 CompositeChunkListener를 타입 있는 시그니처로 바꾸면, 같은 종류의 혼동이 다음번에는 컴파일 단계에서 막힙니다.",
               "방향이 정해지면 테스트와 함께 PR을 올리겠다고 적어두었습니다."
             ]
@@ -212,7 +267,7 @@ export const portfolioData = {
     facts: [
       { label: "NOW", title: "앤유코퍼레이션 Backend Engineer", sub: "myblocks.kr 커머스 개발 중" },
       { label: "SHIPPED", title: "동양미래대 숲 운영 중", sub: "iOS · Android 스토어 출시" },
-      { label: "OPEN SOURCE", title: "Spring · AWS CDK 기여", sub: "Security 머지 · Batch 6.0.6 반영 · CDK 머지 대기" }
+      { label: "OPEN SOURCE", title: "Spring · AWS CDK 기여", sub: "머지 2건 · Batch 6.0.6 반영 · CDK 머지 대기" }
     ]
   },
   openSource,
@@ -289,7 +344,7 @@ export const portfolioData = {
       position: "Backend Engineer",
       role: "Backend Engineer",
       period: "2026.03 - 현재",
-      description: "링크 인 바이오 커머스 플랫폼 myblocks.kr 백엔드 개발 (Next.js 모노레포 · AWS 서버리스)"
+      description: "백엔드, 프론트 풀스택 개발"
     }
   ],
   education: [

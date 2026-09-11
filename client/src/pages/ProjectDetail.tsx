@@ -154,8 +154,8 @@ export default function ProjectDetail() {
                   key={paragraph}
                   className={
                     i === 0
-                      ? "text-foreground max-w-[64ch] text-lg leading-[1.8]"
-                      : "text-muted-foreground max-w-[64ch] leading-[1.8]"
+                      ? "text-foreground text-lg leading-[1.8]"
+                      : "text-muted-foreground leading-[1.8]"
                   }
                 >
                   {paragraph}
@@ -184,7 +184,7 @@ export default function ProjectDetail() {
               {project.techChoices.map(choice => (
                 <div key={choice.title} className="rounded-lg border p-5">
                   <h4 className="font-medium">{choice.title}</h4>
-                  <p className="text-muted-foreground mt-2 max-w-[64ch] text-sm leading-relaxed">
+                  <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
                     {choice.reason}
                   </p>
                 </div>

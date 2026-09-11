@@ -131,7 +131,7 @@ export default function AppSidebar() {
                   <Mail className="size-4" />
                 </div>
                 <div className="grid flex-1 text-left leading-tight">
-                  <span className="truncate text-xs font-medium">채용 · 협업 문의</span>
+                  <span className="truncate text-xs font-medium">저랑 이야기 해봐요</span>
                   <span className="text-muted-foreground truncate text-xs">{contact.email}</span>
                 </div>
               </a>
