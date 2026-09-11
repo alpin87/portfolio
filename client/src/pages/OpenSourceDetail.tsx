@@ -14,8 +14,10 @@ export default function OpenSourceDetail() {
 
   if (!match || !entry || !entry.hasDetail || !entry.article) return <NotFound />;
 
-  const Icon =
-    entry.kind === "issue" ? CircleDot : entry.state === "Merged" ? GitMerge : GitPullRequest;
+  const merged = entry.kind === "pr" && entry.state.startsWith("Merged");
+  const Icon = entry.kind === "issue" ? CircleDot : merged ? GitMerge : GitPullRequest;
+  // 완료 상태(머지된 PR·해결된 이슈)는 GitHub 과 같은 보라로 통일한다
+  const badgeColor = entry.tone === "success" ? "text-merged size-3" : "text-muted-foreground size-3";
   const { article } = entry;
 
   return (
@@ -36,20 +38,16 @@ export default function OpenSourceDetail() {
               <span aria-hidden>·</span>
               <span>{entry.date}</span>
               <Badge variant="outline" className="ml-1">
-                <Icon
-                  className={
-                    entry.tone === "success" ? "text-success size-3" : "text-muted-foreground size-3"
-                  }
-                />
+                <Icon className={badgeColor} />
                 {entry.kind === "issue" ? "이슈" : "PR"} · {entry.state}
               </Badge>
             </div>
 
-            <h2 className="max-w-[32ch] text-3xl leading-tight font-semibold tracking-tight">
+            <h2 className="text-3xl leading-tight font-semibold tracking-tight">
               {entry.title}
             </h2>
 
-            <p className="text-muted-foreground max-w-[70ch] text-lg leading-relaxed">
+            <p className="text-muted-foreground text-lg leading-relaxed">
               {article.lead}
             </p>
 
@@ -66,11 +64,11 @@ export default function OpenSourceDetail() {
             {article.sections.map((section, i) => (
               <section key={section.heading} className="space-y-4">
                 {i > 0 && <Separator className="mb-10" />}
-                <h3 className="max-w-[34ch] text-xl leading-snug font-semibold tracking-tight">
+                <h3 className="text-xl leading-snug font-semibold tracking-tight">
                   {section.heading}
                 </h3>
                 {section.body.map(paragraph => (
-                  <p key={paragraph} className="text-muted-foreground max-w-[70ch] leading-relaxed">
+                  <p key={paragraph} className="text-muted-foreground leading-relaxed">
                     {paragraph}
                   </p>
                 ))}
@@ -89,7 +87,7 @@ export default function OpenSourceDetail() {
                   </figure>
                 )}
                 {section.after?.map(paragraph => (
-                  <p key={paragraph} className="text-muted-foreground max-w-[70ch] leading-relaxed">
+                  <p key={paragraph} className="text-muted-foreground leading-relaxed">
                     {paragraph}
                   </p>
                 ))}
